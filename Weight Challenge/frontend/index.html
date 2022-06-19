@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sirclo</title>
+</head>
+<body>
+    <a href="add.html"><button>Add Data</button></a>
+    <table id="table_data">
+        <tr>
+            <td>Tanggal</td>
+            <td>Max</td>
+            <td>Min</td>
+            <td>Perbedaan</td>
+            <td>Action</td>
+        </tr>
+    </table>
+</body>
+<script>
+    var url = "http://localhost:3000"
+    var resp;
+    var tableRef = document.getElementById("table_data").getElementsByTagName('tbody')[0];
+
+    var value = fetch(url).then((resp) => {
+        return resp.json()
+    }).then((data) => {
+        console.log(data)
+        resp = data;
+        resp.data.forEach(element => {
+            var htmlContent = `
+            <tr>
+                <td>${element.date.substring(0,10)}</td>
+                <td>${element.max}</td>
+                <td>${element.min}</td>
+                <td>${element.diff}</td>
+                <td><a href="show.html?date=${element.date.substring(0,10)}&min=${element.min}&max=${element.max}&diff=${element.diff}&id=${element.id}"><button>Show</button></a></td>
+            </tr>`
+            var newRow = tableRef.insertRow(tableRef.rows.length)
+            newRow.innerHTML = htmlContent;
+        });
+    })
+    
+</script>
+</html>

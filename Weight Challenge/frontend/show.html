@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>Tanggal</td>
+            <td id="tgl">2018-08-18</td>
+        </tr>
+        <tr>
+            <td>Max</td>
+            <td id="max">51</td>
+        </tr>
+        <tr>
+            <td>Min</td>
+            <td id="min">50</td>
+        </tr>
+        <tr>
+            <td>Perbedaan</td>
+            <td id="diff">1</td>
+        </tr>
+    </table>
+    <div>
+        <input type="date" name="date"/>
+        <input type="number" name="max" />
+        <input type="number" name="min" />
+        <button onclick="submit()">Submit</button>
+    </div>
+</body>
+<script>
+    var tglRef = document.getElementById("tgl");
+    var maxRef = document.getElementById("max");
+    var minRef = document.getElementById("min");
+    var diffRef = document.getElementById("diff");
+
+    var param = new URLSearchParams(window.location.search);
+    tglRef.innerHTML = param.get("date");
+    maxRef.innerHTML = param.get("max");
+    minRef.innerHTML = param.get("min");
+    diffRef.innerHTML = param.get("diff");
+
+    document.getElementsByName("date")[0].value = param.get("date");
+    document.getElementsByName("max")[0].value = param.get("max");
+    document.getElementsByName("min")[0].value = param.get("min");
+    document.getElementById("diff").value = param.get("diff");
+
+
+    function submit() {
+        var dateForm = document.getElementsByName("date")[0].value
+        var maxForm = document.getElementsByName("max")[0].value
+        var minForm = document.getElementsByName("min")[0].value
+
+        var url = "http://localhost:3000/edit";
+        var payload = JSON.stringify(
+                {
+                    id: parseInt(param.get("id"), 10), 
+                    date: dateForm,
+                    min: parseInt(minForm, 10),
+                    max: parseInt(maxForm, 10)
+                }
+            )
+
+        fetch(url, {
+            method: 'POST',
+            header: {
+                'Content-Type': 'application/json'
+            },
+            body: payload
+        }).then((resp) => {
+            window.location.href = "index.html"
+        });
+    }
+
+</script>
+</html>
