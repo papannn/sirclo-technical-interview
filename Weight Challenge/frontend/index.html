@@ -40,6 +40,15 @@
             var newRow = tableRef.insertRow(tableRef.rows.length)
             newRow.innerHTML = htmlContent;
         });
+        var htmlContent = `
+            <tr>
+                <td>Rata-rata</td>
+                <td>${resp.mean.max}</td>
+                <td>${resp.mean.min}</td>
+                <td>${resp.mean.max}</td>
+            </tr>`
+        var newRow = tableRef.insertRow(tableRef.rows.length)
+        newRow.innerHTML = htmlContent;
     })
     
 </script>
