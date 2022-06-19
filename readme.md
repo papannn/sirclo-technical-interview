@@ -18,7 +18,7 @@ For Backend Flow will be like this <br/>
 
 For Frontend UI will be like this <br/>
 <p align="center">
-  <img src="frontend-flow-1.png" width="250" />
+  <img src="fe-final.png" width="250" />
 </p>
 <p align="center">
   <img src="frontend-flow-2.png" width="500"/>
